@@ -9,6 +9,11 @@ use App\Models\Fasilitas;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
+use Illuminate\Support\Facades\Http;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
+use Filament\Forms\Components\Actions\Action;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\FasilitasResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -33,6 +38,7 @@ class FasilitasResource extends Resource
                                     ->required()
                                     ->maxLength(255),
                                 Forms\Components\RichEditor::make('bahasa_indonesia')
+                                    ->label('Deskripsi (Bahasa Indonesia)')
                                     ->toolbarButtons([
                                         'attachFiles',
                                         'blockquote',
@@ -48,25 +54,57 @@ class FasilitasResource extends Resource
                                         'strike',
                                         'underline',
                                         'undo',
-                                    ]),
-                                Forms\Components\RichEditor::make('bahasa_inggris')
-                                    ->toolbarButtons([
-                                        'attachFiles',
-                                        'blockquote',
-                                        'bold',
-                                        'bulletList',
-                                        'codeBlock',
-                                        'h2',
-                                        'h3',
-                                        'italic',
-                                        'link',
-                                        'orderedList',
-                                        'redo',
-                                        'strike',
-                                        'underline',
-                                        'undo',
-                                    ]),
-                            ])->columnSpan(2), // Kolom kiri mengambil 2/3 dari grid
+                                    ])
+                                    ->afterStateUpdated(function (?string $state, Set $set) {
+                                        if ($state !== null && $state !== '') {
+                                            $translatedText = self::translateText($state);
+                                            $set('bahasa_inggris', $translatedText);
+                                        } else {
+                                            $set('bahasa_inggris', '');
+                                        }
+                                    })
+                                    ->reactive()
+                                    ->required(),
+
+                                // Forms\Components\RichEditor::make('bahasa_inggris')
+                                //     ->label('Deskripsi (Bahasa Inggris)')
+                                //     ->default('')
+                                //     ->toolbarButtons([
+                                //         'attachFiles',
+                                //         'blockquote',
+                                //         'bold',
+                                //         'bulletList',
+                                //         'codeBlock',
+                                //         'h2',
+                                //         'h3',
+                                //         'italic',
+                                //         'link',
+                                //         'orderedList',
+                                //         'redo',
+                                //         'strike',
+                                //         'underline',
+                                //         'undo',
+                                //     ])
+                                //     ->readOnly()
+                                //     ->extraAttributes([
+                                //         'style' => 'height: 300px; width: 100%; opacity: 0.7;',
+                                //     ])
+                                //     ->reactive(),
+
+                                Forms\Components\Textarea::make('bahasa_inggris')
+                                    ->label('Deskripsi (Bahasa Inggris)')
+                                    ->default('')
+                                    ->readOnly()
+                                    ->afterStateHydrated(fn($state, Set $set) => $set('bahasa_inggris', strip_tags($state)))
+                                    ->extraAttributes([
+                                        'style' => 'height: 250px; width: 100%; opacity: 0.7;',
+                                    ])
+                                    ->reactive(),
+
+
+
+
+                            ])->columnSpan(2),
 
                         Grid::make(1)
                             ->schema([
@@ -81,7 +119,7 @@ class FasilitasResource extends Resource
                                 Forms\Components\FileUpload::make('bahasa_isyarat')
                                     ->label('Upload File Bahasa Isyarat')
                                     ->required(),
-                            ])->columnSpan(1), // Kolom kanan mengambil 1/3 dari grid
+                            ])->columnSpan(1),
                     ]),
             ]);
     }
@@ -93,7 +131,7 @@ class FasilitasResource extends Resource
                 Tables\Columns\TextColumn::make('fasilitas')
                     ->label('Nama Fasilitas')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('bahasa_isyarat')
+                Tables\Columns\ImageColumn::make('bahasa_isyarat')
                     ->label('Bahasa Isyarat')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image1')
@@ -136,5 +174,45 @@ class FasilitasResource extends Resource
             'create' => Pages\CreateFasilitas::route('/create'),
             'edit' => Pages\EditFasilitas::route('/{record}/edit'),
         ];
+    }
+
+    private static function translateText(string $text): string
+    {
+        if (empty($text)) {
+            return '';
+        }
+
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-RapidAPI-Key' => config('services.rapidapi.key'),
+            'X-RapidAPI-Host' => 'ultra-fast-translation.p.rapidapi.com'
+        ])->post('https://ultra-fast-translation.p.rapidapi.com/t', [
+            'from' => 'id-ID',
+            'to' => 'en-GB',
+            'e' => '',
+            'q' => [$text]
+        ]);
+
+        if ($response->successful()) {
+            $data = $response->json();
+            return $data[0] ?? $text;
+        }
+
+        return $text; // Kembalikan teks asli jika terjemahan gagal
+    }
+
+    public static function mutateFormDataBeforeCreate(array $data): array
+    {
+        // Pastikan bahasa_inggris selalu terisi
+        if (empty($data['bahasa_inggris']) && !empty($data['bahasa_indonesia'])) {
+            $data['bahasa_inggris'] = self::translateText($data['bahasa_indonesia']);
+        }
+        return $data;
+    }
+
+    public static function mutateFormDataBeforeSave(array $data): array
+    {
+        // Sama seperti sebelum create
+        return self::mutateFormDataBeforeCreate($data);
     }
 }
