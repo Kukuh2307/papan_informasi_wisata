@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('pengelola');
             $table->string('lokasi');
             $table->text('deskripsi');
+            $table->text('translate_deskripsi');
             $table->string('image');
             $table->string('qrcode');
             $table->timestamps();
