@@ -34,10 +34,26 @@ class FasilitasResource extends Resource
                         Grid::make(1)
                             ->schema([
                                 Forms\Components\TextInput::make('fasilitas')
-                                    ->label('Nama Fasilitas')
+                                    ->label('Nama Fasilitas (Bahasa Indonesia)')
                                     ->required()
-                                    ->maxLength(255),
-                                Forms\Components\RichEditor::make('bahasa_indonesia')
+                                    ->maxLength(255)
+                                    ->afterStateUpdated(function (?string $state, Set $set) {
+                                        if ($state !== null && $state !== '') {
+                                            $translatedText = self::translateText($state);
+                                            $set('translate_fasilitas', $translatedText);
+                                        } else {
+                                            $set('translate_fasilitas', '');
+                                        }
+                                    })
+                                    ->reactive(),
+
+                                Forms\Components\TextInput::make('translate_fasilitas')
+                                    ->label('Nama Fasilitas (Bahasa Inggris)')
+                                    ->default('')
+                                    ->readOnly()
+                                    ->reactive(),
+
+                                RichEditor::make('bahasa_indonesia')
                                     ->label('Deskripsi (Bahasa Indonesia)')
                                     ->toolbarButtons([
                                         'attachFiles',
@@ -57,7 +73,7 @@ class FasilitasResource extends Resource
                                     ])
                                     ->afterStateUpdated(function (?string $state, Set $set) {
                                         if ($state !== null && $state !== '') {
-                                            $translatedText = self::translateText($state);
+                                            $translatedText = self::translateText(strip_tags($state));
                                             $set('bahasa_inggris', $translatedText);
                                         } else {
                                             $set('bahasa_inggris', '');
@@ -66,36 +82,10 @@ class FasilitasResource extends Resource
                                     ->reactive()
                                     ->required(),
 
-                                // Forms\Components\RichEditor::make('bahasa_inggris')
-                                //     ->label('Deskripsi (Bahasa Inggris)')
-                                //     ->default('')
-                                //     ->toolbarButtons([
-                                //         'attachFiles',
-                                //         'blockquote',
-                                //         'bold',
-                                //         'bulletList',
-                                //         'codeBlock',
-                                //         'h2',
-                                //         'h3',
-                                //         'italic',
-                                //         'link',
-                                //         'orderedList',
-                                //         'redo',
-                                //         'strike',
-                                //         'underline',
-                                //         'undo',
-                                //     ])
-                                //     ->readOnly()
-                                //     ->extraAttributes([
-                                //         'style' => 'height: 300px; width: 100%; opacity: 0.7;',
-                                //     ])
-                                //     ->reactive(),
-
                                 Forms\Components\Textarea::make('bahasa_inggris')
                                     ->label('Deskripsi (Bahasa Inggris)')
                                     ->default('')
                                     ->readOnly()
-                                    ->afterStateHydrated(fn($state, Set $set) => $set('bahasa_inggris', strip_tags($state)))
                                     ->extraAttributes([
                                         'style' => 'height: 250px; width: 100%; opacity: 0.7;',
                                     ])
@@ -114,6 +104,10 @@ class FasilitasResource extends Resource
                                     ->required(),
                                 Forms\Components\FileUpload::make('image2')
                                     ->label('Foto 2')
+                                    ->image()
+                                    ->required(),
+                                Forms\Components\FileUpload::make('icon')
+                                    ->label('icon')
                                     ->image()
                                     ->required(),
                                 Forms\Components\FileUpload::make('bahasa_isyarat')
@@ -182,20 +176,25 @@ class FasilitasResource extends Resource
             return '';
         }
 
-        $response = Http::withHeaders([
-            'content-type' => 'application/json',
-            'X-RapidAPI-Key' => config('services.rapidapi.key'),
-            'X-RapidAPI-Host' => 'ultra-fast-translation.p.rapidapi.com'
-        ])->post('https://ultra-fast-translation.p.rapidapi.com/t', [
-            'from' => 'id-ID',
-            'to' => 'en-GB',
-            'e' => '',
-            'q' => [$text]
-        ]);
+        try {
+            $response = Http::withHeaders([
+                'content-type' => 'application/json',
+                'X-RapidAPI-Key' => config('services.rapidapi.key'),
+                'X-RapidAPI-Host' => 'ultra-fast-translation.p.rapidapi.com',
+            ])->post('https://ultra-fast-translation.p.rapidapi.com/t', [
+                'from' => 'id-ID',
+                'to' => 'en-GB',
+                'e' => '',
+                'q' => [$text],
+            ]);
 
-        if ($response->successful()) {
-            $data = $response->json();
-            return $data[0] ?? $text;
+            if ($response->successful()) {
+                $data = $response->json();
+                return $data[0] ?? $text;
+            }
+        } catch (\Exception $e) {
+            // Log error jika diperlukan
+            // \Log::error('Translation error: ' . $e->getMessage());
         }
 
         return $text; // Kembalikan teks asli jika terjemahan gagal
@@ -203,16 +202,17 @@ class FasilitasResource extends Resource
 
     public static function mutateFormDataBeforeCreate(array $data): array
     {
-        // Pastikan bahasa_inggris selalu terisi
-        if (empty($data['bahasa_inggris']) && !empty($data['bahasa_indonesia'])) {
-            $data['bahasa_inggris'] = self::translateText($data['bahasa_indonesia']);
+        if (empty($data['translate_fasilitas'])) {
+            $data['translate_fasilitas'] = self::translateText($data['fasilitas'] ?? '');
+        }
+        if (empty($data['bahasa_inggris'])) {
+            $data['bahasa_inggris'] = self::translateText(strip_tags($data['bahasa_indonesia'] ?? ''));
         }
         return $data;
     }
 
     public static function mutateFormDataBeforeSave(array $data): array
     {
-        // Sama seperti sebelum create
         return self::mutateFormDataBeforeCreate($data);
     }
 }
