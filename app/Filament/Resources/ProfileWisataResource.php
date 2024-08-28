@@ -9,6 +9,13 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Set;
+use Filament\Forms\Get;
+use Illuminate\Support\Facades\Http;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\FormsComponent;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -23,9 +30,9 @@ class ProfileWisataResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Grid::make(3)
+                Grid::make(3)
                     ->schema([
-                        Forms\Components\Grid::make(1)
+                        Grid::make(1)
                             ->schema([
                                 Forms\Components\TextInput::make('nama_wisata')
                                     ->required()
@@ -42,7 +49,9 @@ class ProfileWisataResource extends Resource
                                 Forms\Components\TextInput::make('lokasi')
                                     ->required()
                                     ->maxLength(255),
-                                Forms\Components\RichEditor::make('deskripsi')
+
+                                RichEditor::make('deskripsi')
+                                    ->label('Deskripsi (Bahasa Indonesia)')
                                     ->toolbarButtons([
                                         'attachFiles',
                                         'blockquote',
@@ -59,9 +68,29 @@ class ProfileWisataResource extends Resource
                                         'underline',
                                         'undo',
                                     ])
+                                    ->afterStateUpdated(function (?string $state, Set $set) {
+                                        if ($state !== null && $state !== '') {
+                                            $translatedText = self::translateText(strip_tags($state));
+                                            $set('translate_deskripsi', $translatedText);
+                                        } else {
+                                            $set('translate_deskripsi', '');
+                                        }
+                                    })
+                                    ->reactive()
+                                    ->required(),
+
+                                Forms\Components\Textarea::make('translate_deskripsi')
+                                    ->label('Deskripsi (Bahasa Inggris)')
+                                    ->default('')
+                                    ->readOnly()
+                                    ->extraAttributes([
+                                        'style' => 'height: 250px; width: 100%; opacity: 0.7;',
+                                    ])
+                                    ->reactive(),
+
                             ])->columnSpan(2),
 
-                        Forms\Components\Grid::make(1)
+                        Grid::make(1)
                             ->schema([
                                 Forms\Components\FileUpload::make('image')
                                     ->image()
@@ -70,7 +99,7 @@ class ProfileWisataResource extends Resource
                                 Forms\Components\FileUpload::make('qrcode')
                                     ->image()
                                     ->directory('images')
-                                    ->required()
+                                    ->required(),
                             ])->columnSpan(1),
                     ]),
             ]);
@@ -127,5 +156,48 @@ class ProfileWisataResource extends Resource
             'create' => Pages\CreateProfileWisata::route('/create'),
             'edit' => Pages\EditProfileWisata::route('/{record}/edit'),
         ];
+    }
+
+    private static function translateText(string $text): string
+    {
+        if (empty($text)) {
+            return '';
+        }
+
+        try {
+            $response = Http::withHeaders([
+                'content-type' => 'application/json',
+                'X-RapidAPI-Key' => config('services.rapidapi.key'),
+                'X-RapidAPI-Host' => 'ultra-fast-translation.p.rapidapi.com',
+            ])->post('https://ultra-fast-translation.p.rapidapi.com/t', [
+                'from' => 'id-ID',
+                'to' => 'en-GB',
+                'e' => '',
+                'q' => [$text],
+            ]);
+
+            if ($response->successful()) {
+                $data = $response->json();
+                return $data[0] ?? $text;
+            }
+        } catch (\Exception $e) {
+            // Log error jika diperlukan
+            // \Log::error('Translation error: ' . $e->getMessage());
+        }
+
+        return $text; // Kembalikan teks asli jika terjemahan gagal
+    }
+
+    public static function mutateFormDataBeforeCreate(array $data): array
+    {
+        if (empty($data['translate_deskripsi'])) {
+            $data['translate_deskripsi'] = self::translateText(strip_tags($data['deskripsi'] ?? ''));
+        }
+        return $data;
+    }
+
+    public static function mutateFormDataBeforeSave(array $data): array
+    {
+        return self::mutateFormDataBeforeCreate($data);
     }
 }
