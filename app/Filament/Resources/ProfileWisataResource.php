@@ -84,7 +84,7 @@ class ProfileWisataResource extends Resource
                                     ->default('')
                                     ->readOnly()
                                     ->extraAttributes([
-                                        'style' => 'height: 250px; width: 100%; opacity: 0.7;',
+                                        'style' => 'height: 250px; width: 100%; opacity: 0.7; overflow: hidden; resize: none; word-wrap: break-word;',
                                     ])
                                     ->reactive(),
 
