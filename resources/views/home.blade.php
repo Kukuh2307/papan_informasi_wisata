@@ -55,8 +55,12 @@
                     <div
                       class="px-5 py-2 w-[calc(50%-0.75rem)] flex items-center gap-3 shadow-lg shadow-black/35 bg-dgreen">
                       <img src="{{ Storage::url($item['icon']) }}" alt="Icon" />
+                      @if ($item['fasilitas'] == 'WIFI' || $item['fasilitas'] == 'CCTV')
+                      <span class="text-[.5em] sm:text-[.7em] md:text-[.9em]">{{ $item['fasilitas'] }}</span>
+                      @else
                       <span class="text-[.5em] sm:text-[.7em] md:text-[.9em]">{{ ucwords(strtolower($item['fasilitas']))
                         }}</span>
+                      @endif
                     </div>
                     @endforeach
                   </div>
@@ -178,7 +182,11 @@
                 {{-- BAHASA INDONESIA --}}
                 <article class="w-10/12 h-1/2">
                   <h1 class="text-6xl font-semibold text-right font-poppins">
+                    @if ($item['fasilitas'] == 'WIFI' || $item['fasilitas'] == 'CCTV')
+                    {{ $item['fasilitas'] }}
+                    @else
                     {{ ucwords(strtolower($item['fasilitas'])) }}
+                    @endif
                   </h1>
                   <div class="flex items-center justify-end w-full gap-6 mt-3">
                     <span class="w-1/5 h-[6px] rounded bg-white"></span>
@@ -212,7 +220,11 @@
                 {{-- BAHASA INGGRIS --}}
                 <article class="w-10/12 pt-10 h-1/2">
                   <h1 class="text-6xl font-semibold font-poppins">
+                    @if ($item['translate_fasilitas'] == 'WIFI' || $item['translate_fasilitas'] == 'CCTV')
+                    {{ $item['translate_fasilitas'] }}
+                    @else
                     {{ ucwords(strtolower($item['translate_fasilitas'])) }}
+                    @endif
                   </h1>
                   <div class="flex items-center justify-start w-full gap-6 mt-3">
                     <p class="text-2xl font-normal font-righteous">

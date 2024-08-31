@@ -45,7 +45,7 @@ class FasilitasResource extends Resource
                                             $set('translate_fasilitas', '');
                                         }
                                     })
-                                    ->reactive(),
+                                    ->lazy(),
 
                                 Forms\Components\TextInput::make('translate_fasilitas')
                                     ->label('Nama Fasilitas (Bahasa Inggris)')
