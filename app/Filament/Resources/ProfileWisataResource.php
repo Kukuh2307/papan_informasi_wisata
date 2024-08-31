@@ -40,9 +40,8 @@ class ProfileWisataResource extends Resource
                                 Forms\Components\TextInput::make('luas_wisata')
                                     ->required()
                                     ->maxLength(255),
-                                Forms\Components\TextInput::make('tahun_peresmian')
-                                    ->required()
-                                    ->maxLength(255),
+                                Forms\Components\DatePicker::make('tahun_peresmian')
+                                    ->required(),
                                 Forms\Components\TextInput::make('pengelola')
                                     ->required()
                                     ->maxLength(255),

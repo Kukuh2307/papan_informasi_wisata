@@ -1,17 +1,17 @@
 .img-sekartaji {
-    background-image: url(/public/img/sekartaji\ 1.svg);
+    background-image: url("/public/img/sekartaji 1.svg");
 }
 
 .fasilitas {
-    background-image: url(/public/img/fasilitas.svg);
+    background-image: url("/public/img/fasilitas.svg");
 }
 
 .bg-sekartaji {
-    background-image: url(/public/img/assets/Group\ 42.svg);
+    background-image: url("/public/img/assets/Group 42.svg");
 }
 
 .bg-sekartaji2 {
-    background-image: url(/public/img/assets/Group\ 43.svg);
+    background-image: url("/public/img/assets/Group 43.svg");
 }
 
 .information::before {

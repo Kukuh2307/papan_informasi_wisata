@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_wisata');
             $table->string('luas_wisata');
-            $table->string('tahun_peresmian');
+            $table->datetime('tahun_peresmian');
             $table->string('pengelola');
             $table->string('lokasi');
             $table->text('deskripsi');

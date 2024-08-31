@@ -13,10 +13,13 @@ class HomeController extends Controller
     {
         $ProfileWisata = ProfileWisata::first();
         $Fasilitas = Fasilitas::first();
+        $FasilitasAll = Fasilitas::all();
         return view('home', [
             'img' => $ProfileWisata['image'],
             'qrcode' => $Fasilitas['bahasa_isyarat'],
             'deskripsi' => $ProfileWisata['deskripsi'],
+            'detail_info' => $ProfileWisata,
+            'fasilitas' => $FasilitasAll,
         ]);
     }
 }

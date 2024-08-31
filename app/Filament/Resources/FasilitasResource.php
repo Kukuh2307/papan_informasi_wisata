@@ -125,6 +125,9 @@ class FasilitasResource extends Resource
                 Tables\Columns\TextColumn::make('fasilitas')
                     ->label('Nama Fasilitas')
                     ->searchable(),
+                // Tables\Columns\ImageColumn::make('icon')
+                //     ->label('Icon')
+                //     ->searchable(),
                 Tables\Columns\ImageColumn::make('bahasa_isyarat')
                     ->label('Bahasa Isyarat')
                     ->searchable(),
