@@ -49,6 +49,11 @@ class ProfileWisataResource extends Resource
                                     ->required()
                                     ->maxLength(255),
 
+                                Forms\Components\TextInput::make('qrcode')
+                                    ->label('Link video bahasa isyarat')
+                                    ->required()
+                                    ->maxLength(255),
+
                                 RichEditor::make('deskripsi')
                                     ->label('Deskripsi (Bahasa Indonesia)')
                                     ->toolbarButtons([
@@ -92,10 +97,6 @@ class ProfileWisataResource extends Resource
                         Grid::make(1)
                             ->schema([
                                 Forms\Components\FileUpload::make('image')
-                                    ->image()
-                                    ->directory('images')
-                                    ->required(),
-                                Forms\Components\FileUpload::make('qrcode')
                                     ->image()
                                     ->directory('images')
                                     ->required(),

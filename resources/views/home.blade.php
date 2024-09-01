@@ -160,10 +160,23 @@
               <div
                 class="absolute w-[20%] bg-white/25 bottom-[3%] right-[20%] backdrop-blur-md shadow-lg shadow-black/25 p-[2%] text-center text-xs flex justify-center flex-col gap-2">
                 <span>QR Code video SIBI atau BISINDO bagi penyandang Tunarungu</span>
-                {{-- @dd($qrcode) --}}
-                <img src="{{ Storage::url($qrcode) }}" alt="" />
 
+                @php
+                $image = base64_encode(QrCode::format('png')
+                ->size(300)
+                ->backgroundColor(255, 255, 255)
+                ->margin(1)
+                ->generate($qrcode));
+                @endphp
+
+                {{-- @dd($image) --}}
+                @if($image)
+                <img src="data:image/png;base64,{{ $image }}" alt="QR Code" />
+                @else
+                <p>Error generating QR code. Please try again later.</p>
+                @endif
               </div>
+
             </div>
           </div>
         </section>
@@ -201,8 +214,23 @@
                         SIBI atau BISINDO video QR Code for the Deaf
                       </p>
                       <div class="relative flex items-center justify-center w-3/4 h-24">
-                        <img src="{{ Storage::url($item['bahasa_isyarat']) }}" alt="" />
+                        {{-- <img src="{{ Storage::url($item['bahasa_isyarat']) }}" alt="" /> --}}
                         {{-- <img class="z-30" src="../public/img/assets/svg-ear.svg" alt="" /> --}}
+
+                        @php
+                        $image = base64_encode(QrCode::format('png')
+                        ->size(300)
+                        ->backgroundColor(255, 255, 255)
+                        ->margin(1)
+                        ->generate($item['bahasa_isyarat']));
+                        @endphp
+
+                        @if ($image)
+                        <img src="data:image/png;base64,{{ $image }}" alt="QR Code" />
+                        @else
+                        <p>Error generating QR code. Please try again later.</p>
+                        @endif
+
                       </div>
                     </div>
                     <div class="w-3/4 text-lg text-justify">
@@ -239,8 +267,21 @@
                         SIBI atau BISINDO video QR Code for the Deaf
                       </p>
                       <div class="relative flex items-center justify-center w-10/12 h-24">
-                        <img src="{{ Storage::url($item['bahasa_isyarat']) }}" alt="" />
+                        {{-- <img src="{{ Storage::url($item['bahasa_isyarat']) }}" alt="" /> --}}
                         {{-- <img class="z-30" src="{{ asset('img/assets/svg-ear.svg') }}" alt="" /> --}}
+
+                        @php
+                        $image = base64_encode(QrCode::format('png')
+                        ->size(300)
+                        ->backgroundColor(255, 255, 255)
+                        ->margin(1)
+                        ->generate($item['bahasa_isyarat']));
+                        @endphp
+                        @if ($image)
+                        <img src="data:image/png;base64,{{ $image }}" alt="QR Code" />
+                        @else
+                        <p>Error generating QR code. Please try again later.</p>
+                        @endif
                       </div>
                     </div>
                     <p class="w-3/4 text-lg text-justify">

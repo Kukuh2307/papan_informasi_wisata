@@ -16,7 +16,7 @@ class HomeController extends Controller
         $FasilitasAll = Fasilitas::all();
         return view('home', [
             'img' => $ProfileWisata['image'],
-            'qrcode' => $Fasilitas['bahasa_isyarat'],
+            'qrcode' => $ProfileWisata['qrcode'],
             'deskripsi' => $ProfileWisata['deskripsi'],
             'detail_info' => $ProfileWisata,
             'fasilitas' => $FasilitasAll,

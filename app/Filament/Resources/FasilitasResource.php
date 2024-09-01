@@ -53,6 +53,10 @@ class FasilitasResource extends Resource
                                     ->readOnly()
                                     ->reactive(),
 
+                                Forms\Components\TextInput::make('bahasa_isyarat')
+                                    ->label('Link video bahasa isyarat')
+                                    ->required(),
+
                                 RichEditor::make('bahasa_indonesia')
                                     ->label('Deskripsi (Bahasa Indonesia)')
                                     ->toolbarButtons([
@@ -110,9 +114,9 @@ class FasilitasResource extends Resource
                                     ->label('icon')
                                     ->image()
                                     ->required(),
-                                Forms\Components\FileUpload::make('bahasa_isyarat')
-                                    ->label('Upload File Bahasa Isyarat')
-                                    ->required(),
+                                // Forms\Components\FileUpload::make('bahasa_isyarat')
+                                //     ->label('Upload File Bahasa Isyarat')
+                                //     ->required(),
                             ])->columnSpan(1),
                     ]),
             ]);
