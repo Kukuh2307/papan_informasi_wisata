@@ -123,9 +123,9 @@
               <div
                 class="information w-[83%] top-[55%] -ms-[8%] absolute h-[40%] bg-ijo px-[7%] py-[3.5%] shadow-lg shadow-black/20">
                 <h1 class="font-righteous text-[38px]">Detail Informasi</h1>
-                <div class="mt-[3%] w-[80%] flex flex-col gap-2 font-righteous h-[65%] overflow-hidden">
+                <div class="mt-[3%] w-[80%] flex flex-col gap-2 font-righteous h-[65%] overflow-hidden text-[1.2vw]">
                   <div class="flex items-center justify-start">
-                    <div class="basis-[140px] text-[.5em] sm:text-[.7em] md:text-[.9em] gap-3 flex items-center">
+                    <div class="basis-[140px] gap-3 flex items-center">
                       <span class="material-symbols-light--width-wide-outline"></span>
                       <span>Luas</span>
                     </div>
@@ -209,9 +209,9 @@
                   </div>
                   <div class="flex items-start justify-between gap-12 pb-6 mt-8">
                     <div
-                      class="flex flex-col items-center justify-center w-1/5 gap-4 px-1 py-5 text-center bg-gray-300/25">
+                      class="flex flex-col items-center justify-center w-1/5 gap-4 px-3 py-5 text-center bg-gray-300/25">
                       <p class="font-righteous text-[15px] leading-5">
-                        SIBI atau BISINDO video QR Code for the Deaf
+                        QR Code Video SIBI atau BISINDO bagi penyandang tunarungu
                       </p>
                       <div class="relative flex items-center justify-center w-3/4 h-24">
                         {{-- <img src="{{ Storage::url($item['bahasa_isyarat']) }}" alt="" /> --}}
@@ -262,9 +262,9 @@
                   </div>
                   <div class="flex flex-row-reverse items-start justify-between gap-12 pb-6 mt-8">
                     <div
-                      class="flex flex-col items-center justify-center w-1/5 gap-4 px-1 py-5 text-center bg-gray-300/25">
+                      class="flex flex-col items-center justify-center w-1/5 gap-4 px-3 py-5 text-center bg-gray-300/25">
                       <p class="font-righteous text-[15px] leading-5">
-                        SIBI atau BISINDO video QR Code for the Deaf
+                        QR Code Video SIBI atau BISINDO bagi penyandang tunarungu
                       </p>
                       <div class="relative flex items-center justify-center w-10/12 h-24">
                         {{-- <img src="{{ Storage::url($item['bahasa_isyarat']) }}" alt="" /> --}}
@@ -319,7 +319,7 @@
                     <div
                       class="flex flex-col items-center justify-center w-1/5 gap-4 px-1 py-5 text-center bg-gray-300/25">
                       <p class="font-righteous text-[15px] leading-5">
-                        SIBI atau BISINDO video QR Code for the Deaf
+                        QR Code Video SIBI atau BISINDO bagi penyandang tunarungu
                       </p>
                       <div class="relative flex items-center justify-center w-10/12 h-24">
                         <img src="{{ Storage::url($fasilitas['bahasa_isyarat']) }}" alt="" />
@@ -351,7 +351,7 @@
                     <div
                       class="flex flex-col items-center justify-center w-1/5 gap-4 px-1 py-5 text-center bg-gray-300/25">
                       <p class="font-righteous text-[15px] leading-5">
-                        SIBI atau BISINDO video QR Code for the Deaf
+                        QR Code Video SIBI atau BISINDO bagi penyandang tunarungu
                       </p>
                       <div class="relative flex items-center justify-center w-10/12 h-24">
                         <img src="{{ Storage::url($fasilitas['bahasa_isyarat']) }}" alt="" />
