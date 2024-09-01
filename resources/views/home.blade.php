@@ -130,7 +130,7 @@
                       <span>Luas</span>
                     </div>
                     <span class="text-[.5em] sm:text-[.7em] md:text-[.9em]">: {{ $detail_info['luas_wisata'] }}
-                      m2</span>
+                      m<sup>2</sup></span>
                   </div>
                   <div class="flex items-center justify-start">
                     <div class="basis-[140px] text-[.5em] sm:text-[.7em] md:text-[.9em] gap-3 flex items-center">
