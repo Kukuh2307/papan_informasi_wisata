@@ -65,39 +65,6 @@
                     @endforeach
                   </div>
                 </div>
-
-                {{-- <div class="relative">
-                  <div class="w-fit mt-[3%] mx-[8%] me-[13%] gap-3 flex font-righteous">
-                    <div class="flex flex-col gap-3">
-                      <div class="px-5 py-2 w-[100%] flex items-center gap-3 shadow-lg shadow-black/35 bg-dgreen">
-                        <span class="material-symbols--smoke-free"></span>
-                        <span class="text-[.5em] sm:text-[.7em] md:text-[.9em]">Area Bebas Asap Rokok</span>
-                      </div>
-                      <div class="px-5 py-2 w-[100%] flex items-center gap-3 shadow-lg shadow-black/35 bg-dgreen">
-                        <span class="lucide--circle-parking"></span>
-                        <span class="text-[.5em] sm:text-[.7em] md:text-[.9em]">Area Parkir</span>
-                      </div>
-                      <div class="px-5 py-2 w-[100%] flex items-center gap-3 shadow-lg shadow-black/35 bg-dgreen">
-                        <span class="lucide--cctv"></span>
-                        <span class="text-[.5em] sm:text-[.7em] md:text-[.9em]">CCTV</span>
-                      </div>
-                    </div>
-                    <div class="flex flex-col gap-3">
-                      <div class="px-5 py-2 w-[100%] flex items-center gap-3 shadow-lg shadow-black/35 bg-dgreen">
-                        <span class="marketeq--water-tap"></span>
-                        <span class="text-[.5em] sm:text-[.7em] md:text-[.9em]">Keran Air Siap Minum</span>
-                      </div>
-                      <div class="px-5 py-2 w-[100%] flex items-center gap-3 shadow-lg shadow-black/35 bg-dgreen">
-                        <span class="material-symbols--wifi"></span>
-                        <span class="text-[.5em] sm:text-[.7em] md:text-[.9em]">Free Wifi</span>
-                      </div>
-                      <div class="px-5 py-2 w-[100%] flex items-center gap-3 shadow-lg shadow-black/35 bg-dgreen">
-                        <span class="ph--plugs"></span>
-                        <span class="text-[.5em] sm:text-[.7em] md:text-[.9em]">Colokan Listrik</span>
-                      </div>
-                    </div>
-                  </div>
-                </div> --}}
               </div>
             </div>
 
@@ -160,21 +127,23 @@
               <div
                 class="absolute w-[20%] bg-white/25 bottom-[3%] right-[20%] backdrop-blur-md shadow-lg shadow-black/25 p-[2%] text-center text-xs flex justify-center flex-col gap-2">
                 <span>QR Code video SIBI atau BISINDO bagi penyandang Tunarungu</span>
+                <div class="relative flex items-center justify-center w-3/4 h-24">
+                  <img src="{{ asset('img/assets/svg-ear.svg') }}" class="w-8 h-8 ml-6 rounded-xl -mt-14" alt="">
+                  @php
+                  $image = base64_encode(QrCode::format('png')
+                  ->size(300)
+                  ->backgroundColor(217, 217, 217)
+                  ->margin(2)
+                  ->generate($qrcode));
+                  @endphp
 
-                @php
-                $image = base64_encode(QrCode::format('png')
-                ->size(300)
-                ->backgroundColor(255, 255, 255)
-                ->margin(1)
-                ->generate($qrcode));
-                @endphp
-
-                {{-- @dd($image) --}}
-                @if($image)
-                <img src="data:image/png;base64,{{ $image }}" alt="QR Code" />
-                @else
-                <p>Error generating QR code. Please try again later.</p>
-                @endif
+                  {{-- @dd($image) --}}
+                  @if($image)
+                  <img src="data:image/png;base64,{{ $image }}" alt="QR Code" />
+                  @else
+                  <p>Error generating QR code. Please try again later.</p>
+                  @endif
+                </div>
               </div>
 
             </div>
@@ -189,7 +158,7 @@
               <div class="relative flex flex-col items-center w-1/2 h-full gap-8 pb-5 img-content">
                 <div class="relative flex justify-end w-full">
                   <span class="absolute bottom-0 z-20 w-3 h-32 bg-ylow -right-3"></span>
-                  <img class="right-0 w-10/12" src="{{ Storage::url($item['image1']) }}" alt="park" />
+                  <img class="right-0 w-10/12" src="{{ Storage::url($item['image1']) }}" class="h-96" />
                 </div>
 
                 {{-- BAHASA INDONESIA --}}
@@ -214,14 +183,12 @@
                         QR Code Video SIBI atau BISINDO bagi penyandang tunarungu
                       </p>
                       <div class="relative flex items-center justify-center w-3/4 h-24">
-                        {{-- <img src="{{ Storage::url($item['bahasa_isyarat']) }}" alt="" /> --}}
-                        {{-- <img class="z-30" src="../public/img/assets/svg-ear.svg" alt="" /> --}}
-
+                        <img src="{{ asset('img/assets/svg-ear.svg') }}" class="w-8 h-8 rounded-xl -mt-14" alt="">
                         @php
                         $image = base64_encode(QrCode::format('png')
                         ->size(300)
-                        ->backgroundColor(255, 255, 255)
-                        ->margin(1)
+                        ->backgroundColor(217, 217, 217)
+                        ->margin(2)
                         ->generate($item['bahasa_isyarat']));
                         @endphp
 
@@ -242,7 +209,7 @@
               <div class="relative flex flex-col-reverse items-center w-1/2 h-full gap-8 img-content bg-ijo">
                 <span class="absolute w-3 h-32 bg-ylow -left-3 bottom-[15%]"></span>
                 <div class="relative w-10/12 h-full mt-10">
-                  <img src="{{ Storage::url($item['image2']) }}" alt="" />
+                  <img src="{{ Storage::url($item['image2']) }}" class="h-96" alt="" />
                 </div>
 
                 {{-- BAHASA INGGRIS --}}
@@ -266,17 +233,16 @@
                       <p class="font-righteous text-[15px] leading-5">
                         QR Code Video SIBI atau BISINDO bagi penyandang tunarungu
                       </p>
-                      <div class="relative flex items-center justify-center w-10/12 h-24">
-                        {{-- <img src="{{ Storage::url($item['bahasa_isyarat']) }}" alt="" /> --}}
-                        {{-- <img class="z-30" src="{{ asset('img/assets/svg-ear.svg') }}" alt="" /> --}}
-
+                      <div class="relative flex items-center justify-center w-3/4 h-24">
+                        <img src="{{ asset('img/assets/svg-ear.svg') }}" class="w-8 h-8 rounded-xl -mt-14" alt="">
                         @php
                         $image = base64_encode(QrCode::format('png')
                         ->size(300)
-                        ->backgroundColor(255, 255, 255)
-                        ->margin(1)
+                        ->backgroundColor(217, 217, 217)
+                        ->margin(2)
                         ->generate($item['bahasa_isyarat']));
                         @endphp
+
                         @if ($image)
                         <img src="data:image/png;base64,{{ $image }}" alt="QR Code" />
                         @else
@@ -294,86 +260,6 @@
           </div>
         </section>
         @endforeach
-
-
-        {{-- <section class="swiper-slide">
-          <div class="flex justify-between w-screen h-screen font-poppins">
-            <!-- Konten Slide Kedua -->
-            <div class="flex w-screen h-screen">
-              <div class="relative flex flex-col items-center w-1/2 h-full gap-8 pb-5 img-content">
-                <div class="relative flex justify-end w-full">
-                  <span class="absolute bottom-0 z-20 w-3 h-32 bg-ylow -right-3"></span>
-                  <img class="right-0 w-10/12" src="../public/img/taman-sekartaji-kediri.jpeg" alt="park" />
-                </div>
-                <article class="w-10/12 h-1/2">
-                  <h1 class="text-6xl font-semibold text-right font-poppins">
-                    {{ $fasilitas['fasilitas'] }}
-                  </h1>
-                  <div class="flex items-center justify-end w-full gap-6 mt-3">
-                    <span class="w-1/5 h-[6px] rounded bg-white"></span>
-                    <p class="text-2xl font-normal font-righteous">
-                      Sekartaji Kediri
-                    </p>
-                  </div>
-                  <div class="flex items-start justify-between gap-12 pb-6 mt-8">
-                    <div
-                      class="flex flex-col items-center justify-center w-1/5 gap-4 px-1 py-5 text-center bg-gray-300/25">
-                      <p class="font-righteous text-[15px] leading-5">
-                        QR Code Video SIBI atau BISINDO bagi penyandang tunarungu
-                      </p>
-                      <div class="relative flex items-center justify-center w-10/12 h-24">
-                        <img src="{{ Storage::url($fasilitas['bahasa_isyarat']) }}" alt="" />
-                        <img class="z-30" src="../public/img/assets/svg-ear.svg" alt="" />
-                      </div>
-                    </div>
-                    <p class="w-3/4 text-lg text-justify">
-                      {{ $fasilitas['deskripsi'] }}
-                    </p>
-                  </div>
-                </article>
-              </div>
-              <div class="relative flex flex-col-reverse items-center w-1/2 h-full gap-8 img-content bg-ijo">
-                <span class="absolute w-3 h-32 bg-ylow -left-3 bottom-[15%]"></span>
-                <div class="relative w-10/12 h-full mt-10">
-                  <img src="{{ Storage::url($fasilitas['image1']) }}" alt="" />
-                </div>
-                <article class="w-10/12 pt-10 h-1/2">
-                  <h1 class="text-6xl font-semibold font-poppins">
-                    {{ $fasilitas['translate-fasilitas'] }}
-                  </h1>
-                  <div class="flex items-center justify-start w-full gap-6 mt-3">
-                    <p class="text-2xl font-normal font-righteous">
-                      Sekartaji Kediri
-                    </p>
-                    <span class="w-1/5 h-[6px] rounded bg-white"></span>
-                  </div>
-                  <div class="flex flex-row-reverse items-start justify-between gap-12 pb-6 mt-8">
-                    <div
-                      class="flex flex-col items-center justify-center w-1/5 gap-4 px-1 py-5 text-center bg-gray-300/25">
-                      <p class="font-righteous text-[15px] leading-5">
-                        QR Code Video SIBI atau BISINDO bagi penyandang tunarungu
-                      </p>
-                      <div class="relative flex items-center justify-center w-10/12 h-24">
-                        <img src="{{ Storage::url($fasilitas['bahasa_isyarat']) }}" alt="" />
-                        <img class="z-30" src="../public/img/assets/svg-ear.svg" alt="" />
-
-                      </div>
-                    </div>
-                    <p class="w-3/4 text-lg text-justify">
-                      {{ $fasiiitas['bahasa_inggris'] }}
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="swiper-slide">
-          <div class="flex justify-between w-screen h-screen font-poppins">
-            <!-- Konten Slide Ketiga -->
-          </div>
-        </section> --}}
       </div>
     </div>
 

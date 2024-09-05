@@ -94,10 +94,6 @@ class FasilitasResource extends Resource
                                         'style' => 'height: 250px; width: 100%; opacity: 0.7;',
                                     ])
                                     ->reactive(),
-
-
-
-
                             ])->columnSpan(2),
 
                         Grid::make(1)
@@ -114,9 +110,6 @@ class FasilitasResource extends Resource
                                     ->label('icon')
                                     ->image()
                                     ->required(),
-                                // Forms\Components\FileUpload::make('bahasa_isyarat')
-                                //     ->label('Upload File Bahasa Isyarat')
-                                //     ->required(),
                             ])->columnSpan(1),
                     ]),
             ]);
@@ -128,12 +121,6 @@ class FasilitasResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('fasilitas')
                     ->label('Nama Fasilitas')
-                    ->searchable(),
-                // Tables\Columns\ImageColumn::make('icon')
-                //     ->label('Icon')
-                //     ->searchable(),
-                Tables\Columns\ImageColumn::make('bahasa_isyarat')
-                    ->label('Bahasa Isyarat')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image1')
                     ->label('Foto 1')
