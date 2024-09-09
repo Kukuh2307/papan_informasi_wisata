@@ -12,6 +12,14 @@ class HomeController extends Controller
     public function index()
     {
         $ProfileWisata = ProfileWisata::first();
+        return view('index', [
+            'img' => $ProfileWisata['image'],
+        ]);
+    }
+
+    public function home()
+    {
+        $ProfileWisata = ProfileWisata::first();
         $FasilitasAll = Fasilitas::all();
         return view('home', [
             'img' => $ProfileWisata['image'],

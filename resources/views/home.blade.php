@@ -26,7 +26,23 @@
 </head>
 
 <body>
-  <main id="headers" class="relative w-full h-screen overflow-hidden g-dgreen bg-dgreen">
+  <div class="wipe-container">
+    <!-- <div class="wipe2">
+      <img
+        class="w-full"
+        src="../public/img/assets/wipe-container.svg"
+        alt=""
+      />
+    </div> -->
+    <div class="wipe"></div>
+    <div class="wipe"></div>
+    <div class="wipe"></div>
+    <div class="wipe"></div>
+    <div class="wipe"></div>
+    <div class="wipe"></div>
+  </div>
+  <main id="headers" data-barba="container" data-barba-namespace="page-b"
+    class="relative w-full h-screen overflow-hidden g-dgreen bg-dgreen">
     <div class="w-full h-full swiper">
       <div class="swiper-wrapper">
         <section class="swiper-slide">
@@ -283,6 +299,14 @@
   </main>
 
   <!-- Script -->
+  <!-- ========= barba js ======= -->
+  <script src="https://unpkg.com/@barba/core"></script>
+  <!-- ========= load gsap animtion ========= -->
+  <script src="https://unpkg.com/gsap@latest/dist/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"
+    integrity="sha512-O+atZ/gABlcFlpIoLQR04f72qHqZWKwTVsQZHqk/8VE2nrzDlnqhXbnXP7Gh/TyhpPT8tEUm5A580GG8AloHTA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script type="module" src="{{ asset('js/app.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
