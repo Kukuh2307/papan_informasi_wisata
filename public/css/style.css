@@ -1,25 +1,26 @@
 .papan-info {
     font-size: clamp(1.125rem, 0.6146rem + 1.1667vw, 1.5625rem);
 }
+
 .sekartaji {
     -webkit-text-stroke: 1px #fff;
-    text-stroke: 1px #ffff;
+    text-stroke: 1px #fff;
 }
 
 .img-sekartaji {
-    background-image: url(/public/img/sekartaji\ 1.svg);
+    background-image: url("{{ asset('img/sekartaji 1.svg') }}");
 }
 
 .fasilitas {
-    background-image: url(/public/img/fasilitas.svg);
+    background-image: url("{{ asset('img/fasilitas.svg') }}");
 }
 
 .bg-sekartaji {
-    background-image: url(/public/img/assets/Group\ 42.svg);
+    background-image: url("{{ asset('img/assets/Group 42.svg') }}");
 }
 
 .bg-sekartaji2 {
-    background-image: url(/public/img/assets/Group\ 43.svg);
+    background-image: url("{{ asset('img/assets/Group 43.svg') }}");
 }
 
 .wipe-container {
@@ -33,6 +34,7 @@
     opacity: 0;
     pointer-events: none;
 }
+
 .wipe {
     background-color: #13841e;
     width: 100%;
@@ -46,11 +48,13 @@
 .wipe h2 {
     font-size: 100px;
 }
+
 .wipe h2 span {
     width: 100px;
     height: 30px;
     background-color: white;
 }
+
 .wipe h1 {
     font-size: 150px;
 }
@@ -195,7 +199,7 @@
     mask-repeat: no-repeat;
 }
 .containerQrCode {
-    background: url("/public/img/assets/containerQRCode.svg") no-repeat;
+    background: url("{{ asset('img/assets/containerQRCode.svg') }}") no-repeat;
     background-size: cover;
     background-position: top;
 }

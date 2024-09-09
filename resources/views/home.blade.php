@@ -141,26 +141,33 @@
                 </div>
               </div>
               <div
-                class="absolute w-[20%] bg-white/25 bottom-[3%] right-[20%] backdrop-blur-md shadow-lg shadow-black/25 p-[2%] text-center text-xs flex justify-center flex-col gap-2">
-                <span>QR Code video SIBI atau BISINDO bagi penyandang Tunarungu</span>
-                <div class="relative flex items-center justify-center w-3/4 h-24">
-                  <img src="{{ asset('img/assets/svg-ear.svg') }}" class="w-8 h-8 ml-6 rounded-xl -mt-14" alt="">
+                class="absolute w-[20%] bottom-[3%] right-[20%] p-[2%] text-center text-xs flex justify-center flex-col gap-2 jus"
+                style="background-image: url('{{ asset('img/assets/containerQRCode.svg') }}'); background-size: contain; background-repeat: no-repeat; height: 19rem;">
+                <p class="font-righteous text-[15px] leading-5 mb-3">
+                  QR Code Video SIBI atau BISINDO bagi penyandang tunarungu
+                </p>
+                <div class="relative flex items-center justify-center w-[90%] h-24 mt-3">
                   @php
+                  // Generate QR Code in base64 format
+                  try {
                   $image = base64_encode(QrCode::format('png')
                   ->size(300)
                   ->backgroundColor(217, 217, 217)
                   ->margin(2)
                   ->generate($qrcode));
+                  } catch (\Exception $e) {
+                  $image = null;
+                  }
                   @endphp
 
-                  {{-- @dd($image) --}}
-                  @if($image)
-                  <img src="data:image/png;base64,{{ $image }}" alt="QR Code" />
+                  @if ($image)
+                  <img src="data:image/png;base64,{{ $image }}" alt="QR Code" class="border-0 rounded-lg w-[90%]" />
                   @else
                   <p>Error generating QR code. Please try again later.</p>
                   @endif
                 </div>
               </div>
+
 
             </div>
           </div>
@@ -193,27 +200,32 @@
                     </p>
                   </div>
                   <div class="flex items-start justify-between gap-12 pb-6 mt-8">
-                    <div
-                      class="flex flex-col items-center justify-center w-1/5 gap-4 px-3 py-5 text-center bg-gray-300/25">
-                      <p class="font-righteous text-[15px] leading-5">
-                        QR Code Video SIBI atau BISINDO bagi penyandang tunarungu
+                    <div class="flex flex-col items-center w-1/5 gap-5 px-1 pb-3 text-center border-0 rounded-md pt-14"
+                      style="background-image: url('{{ asset('img/assets/containerQRCode.svg') }}'); background-size: contain; background-repeat: no-repeat;
+                      height: 25rem;">
+                      <p class="font-righteous text-[15px] leading-5 -mt-3">
+                        QR Code Video SIBI atau BISINDO untuk penyandang tunarungu
                       </p>
-                      <div class="relative flex items-center justify-center w-3/4 h-24">
-                        <img src="{{ asset('img/assets/svg-ear.svg') }}" class="w-8 h-8 rounded-xl -mt-14" alt="">
+                      <div class="relative flex items-center justify-center w-[90%] h-24">
                         @php
+                        // Generate QR Code in base64 format
+                        try {
                         $image = base64_encode(QrCode::format('png')
                         ->size(300)
                         ->backgroundColor(217, 217, 217)
                         ->margin(2)
                         ->generate($item['bahasa_isyarat']));
+                        } catch (\Exception $e) {
+                        $image = null;
+                        }
                         @endphp
 
                         @if ($image)
-                        <img src="data:image/png;base64,{{ $image }}" alt="QR Code" />
+                        <img src="data:image/png;base64,{{ $image }}" alt="QR Code"
+                          class="border-0 rounded-lg w-[90%]" />
                         @else
                         <p>Error generating QR code. Please try again later.</p>
                         @endif
-
                       </div>
                     </div>
                     <div class="w-3/4 text-lg text-justify">
@@ -244,28 +256,35 @@
                     <span class="w-1/5 h-[6px] rounded bg-white"></span>
                   </div>
                   <div class="flex flex-row-reverse items-start justify-between gap-12 pb-6 mt-8">
-                    <div
-                      class="flex flex-col items-center justify-center w-1/5 gap-4 px-3 py-5 text-center bg-gray-300/25">
-                      <p class="font-righteous text-[15px] leading-5">
-                        QR Code Video SIBI atau BISINDO bagi penyandang tunarungu
+                    <div class="flex flex-col items-center w-1/5 gap-5 px-1 pb-3 text-center border-0 rounded-md pt-14"
+                      style="background-image: url('{{ asset('img/assets/containerQRCode.svg') }}'); background-size: contain; background-repeat: no-repeat;
+                      height: 25rem;">
+                      <p class="font-righteous text-[15px] leading-5 -mt-3">
+                        QR Code Video SIBI atau BISINDO untuk penyandang tunarungu
                       </p>
-                      <div class="relative flex items-center justify-center w-3/4 h-24">
-                        <img src="{{ asset('img/assets/svg-ear.svg') }}" class="w-8 h-8 rounded-xl -mt-14" alt="">
+                      <div class="relative flex items-center justify-center w-[90%] h-24">
                         @php
+                        // Generate QR Code in base64 format
+                        try {
                         $image = base64_encode(QrCode::format('png')
                         ->size(300)
                         ->backgroundColor(217, 217, 217)
                         ->margin(2)
                         ->generate($item['bahasa_isyarat']));
+                        } catch (\Exception $e) {
+                        $image = null;
+                        }
                         @endphp
 
                         @if ($image)
-                        <img src="data:image/png;base64,{{ $image }}" alt="QR Code" />
+                        <img src="data:image/png;base64,{{ $image }}" alt="QR Code"
+                          class="border-0 rounded-lg w-[90%]" />
                         @else
                         <p>Error generating QR code. Please try again later.</p>
                         @endif
                       </div>
                     </div>
+
                     <p class="w-3/4 text-lg text-justify">
                       {{ $item['bahasa_inggris'] }}
                     </p>

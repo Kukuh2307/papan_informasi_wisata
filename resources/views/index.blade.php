@@ -5,9 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Papan Informasi | Taman Sekartaji</title>
-    @vite('resources/css/app.css')
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/output.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/output.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <!-- Font poppins -->
@@ -20,19 +19,12 @@
 
 <body>
     <div class="wipe-container">
-        <!-- <div class="wipe2">
-        <img
-          class="w-full"
-          src="../public/img/assets/wipe-container.svg"
-          alt=""
-        />
-      </div> -->
-        <div class="wipe"></div>
-        <div class="wipe"></div>
-        <div class="wipe"></div>
-        <div class="wipe"></div>
-        <div class="wipe"></div>
-        <div class="wipe"></div>
+        <div class="font-semibold wipe font-poppins">
+            <div>
+                <h2>Taman <span></span></h2>
+                <h1 class="-mt-10">Sekataji</h1>
+            </div>
+        </div>
     </div>
     <main id="headers" data-barba="wrapper"
         class="relative w-screen h-screen overflow-hidden bg-gradient-to-br from-green-900 to-dgreen">
@@ -48,36 +40,33 @@
                 <img class="absolute left-0 inset-4" src="{{ asset('img/assets/Ellipse.png') }}" alt="" srcset="" />
                 <div class="relative ms-[8%] mt-60 flex-col flex justify-center">
                     <h2 class="text-4xl font-bold swipe-up">Taman</h2>
-                    <b class="swipe-up font-bold text-[125px] leading-none">Sekartaji</b>
+                    <b class="swipe-up font-bold text-[112px] leading-none">Sekartaji</b>
                     <span
                         class="absolute font-bold text-transparent swipe-up sekartaji opacity-70 text-8xl bottom-8 -left-24">Sekartaji</span>
                     <h3 class="mt-5 text-5xl font-bold text-right swipe-up">Kediri</h3>
                 </div>
             </div>
 
-            <img class="absolute top-0 right-0 object-cover w-1/2 h-full swipe-left"
-                src="{{ asset('img/assets/img-welcome.png') }}" alt="" loading="lazy" />
-
-
-            <a href="/home">
-                <img class="absolute left-[25%] w-1/2 -bottom-7 transition-all ease-in-out duration-300 hover:bottom-0 z-10 cursor-pointer"
-                    src="{{ asset('img/assets/button-to-bottom.svg') }}" alt="down" />
+            <img class="absolute top-0 right-0 w-1/2 h-full swipe-left" src="{{ asset('img/assets/img-welcome.png') }}"
+                alt="" />
+            <a href="{{ url('home') }}">
+                <img class="left-[30%] absolute w-1/2 -bottom-7 transition-all ease-in hover:bottom-0 z-10 duration-300 cursor-pointer"
+                    src="{{ asset('img/assets/button-to-bottom.svg') }}" alt="" srcset="" />
             </a>
-
         </section>
         <div class="nex-prev absolute w-full top-[50%] z-[99]">
             <div class="flex justify-between">
                 <div
                     class="custom-swiper-button-prev opacity-0 -translate-x-[50px] transition-all duration-[.5s] hover:-translate-x-[20px]">
                     <button class="p-2">
-                        <img src="{{ asset('img/asset/Group 79 (2).svg') }}" class="-mt-[310px]" alt="" />
+                        <img src="{{ asset('img/assets/Group 79 (2).svg') }}" class="-mt-[310px]" alt="" />
                     </button>
                 </div>
                 <div
                     class="custom-swiper-button-next opacity-100 translate-x-[50px] transition-all duration-[.5s] hover:translate-x-[20px]">
-                    <button class="p-2">
-                        <img src="{{ asset('img/asset/Group 80.svg') }}" class="-mt-[310px]" alt="" />
-                    </button>
+                    {{-- <button class="p-2">
+                        <img src="{{ asset('img/assets/Group 80.svg') }}" class="-mt-[310px]" alt="" />
+                    </button> --}}
                 </div>
             </div>
         </div>
