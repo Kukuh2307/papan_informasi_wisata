@@ -5,7 +5,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Papan Informasi | Taman Sekartaji</title>
-    <link rel="stylesheet" href="{{ asset('css/output.css') }}" />
+
+    @vite('resources/css/app.css')
+
+    <link rel="stylesheet" href="{{asset('css/output.css')}}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
@@ -18,71 +21,111 @@
 </head>
 
 <body>
+    <!-- Slide Untuk transisi Barba.js -->
+    <!-- Container pembungkus page transition barba -->
     <div class="wipe-container">
-        <div class="font-semibold wipe font-poppins">
-            <div>
-                <h2>Taman <span></span></h2>
-                <h1 class="-mt-10">Sekataji</h1>
-            </div>
+      <!-- child content untuk menampilkan transisi Barbanya -->
+      <div class="wipe bg-ylow"></div>
+      <div class="wipe bg-grass"></div>
+      <div
+        class="wipe bg-dgreen font-poppins font-semibold flex justify-center items-center"
+      >
+        <div>
+          <h2 class="text-[6vw]">
+            Taman <span class="inline-block w-[15vw] h-[1vw] bg-white"></span>
+          </h2>
+          <h1 class="-mt-[4vw] text-[10vw]">Sekartaji</h1>
         </div>
+      </div>
+      <!-- child content untuk menampilkan transisi Barbanya -->
     </div>
-    <main id="headers" data-barba="wrapper"
-        class="relative w-screen h-screen overflow-hidden bg-gradient-to-br from-green-900 to-dgreen">
+    <!-- Container pembungkus page transition barba -->
+
+    <main id="headers"
+      data-barba="wrapper"
+      class="w-screen h-screen relative overflow-hidden bg-dgreen"
+    >
+        
         <section class="w-full h-full overflow-hidden" data-barba="container" data-barba-namespace="page-a">
-            <h1 class="pt-10 text-3xl font-light text-white papan-info font-righteous ms-16">
+            <h1 class="text-white text-[1.5vw] font-righteous font-light ms-[4vw] pt-[2vw]">
                 Papan Informasi
             </h1>
-            <span
-                class="absolute z-0 -mt-2 font-bold tracking-wide text-white b-kediri text-10xl latter-name font-poppins -left-8 opacity-10">Kediri</span>
-            <span
-                class="absolute z-0 font-bold text-white b-sekartaji text-10xl latter-name font-poppins opacity-10 bottom-1 left-1/4">Sekartaji</span>
-            <div class="relative flex w-1/2 text-white swipe-right font-poppins mt-7">
-                <img class="absolute left-0 inset-4" src="{{ asset('img/assets/Ellipse.png') }}" alt="" srcset="" />
-                <div class="relative ms-[8%] mt-60 flex-col flex justify-center">
-                    <h2 class="text-4xl font-bold swipe-up">Taman</h2>
-                    <b class="swipe-up font-bold text-[112px] leading-none">Sekartaji</b>
-                    <span
-                        class="absolute font-bold text-transparent swipe-up sekartaji opacity-70 text-8xl bottom-8 -left-24">Sekartaji</span>
-                    <h3 class="mt-5 text-5xl font-bold text-right swipe-up">Kediri</h3>
+            <span class="b-kediri text-[12vw] -mt-[2vw] tracking-wide z-0 font-poppins text-white font-bold absolute opacity-[.06]">Kediri</span>
+            <span class="b-sekartaji text-[16vw] z-0 font-poppins text-white font-bold absolute opacity-[.06] bottom-[.3vw] left-[15vw]">Sekartaji</span>
+            <div class="w-[50vw] relative z-[10] h-full flex items-center font-poppins">
+                <div class="w-[80%] swipe-right h-[45vw] bg-elipse relative">
+                    <span class="swipe-up inline-block absolute text-[6.5vw] sekartaji text-transparent font-bold bottom-[20vw] -left-[3vw]">Sekartaji</span
+                    >
+                    <div class="swipe-up ms-[4vw] w-[75%] mt-[10vw]">
+                        <h2 class="text-[3vw] font-bold">Taman</h2>
+                        <h1 class="text-[6.5vw] font-bold -mt-[2vw]">Sekartaji</h1>
+                        <h2 class="text-[3vw] font-bold text-end">Kediri</h2>
+                    </div>
                 </div>
             </div>
 
-            <img class="absolute top-0 right-0 w-1/2 h-full swipe-left" src="{{ asset('img/assets/img-welcome.png') }}"
-                alt="" />
-            <a href="{{ url('home') }}">
-                <img class="left-[30%] absolute w-1/2 -bottom-7 transition-all ease-in hover:bottom-0 z-10 duration-300 cursor-pointer"
-                    src="{{ asset('img/assets/button-to-bottom.svg') }}" alt="" srcset="" />
-            </a>
-        </section>
-        <div class="nex-prev absolute w-full top-[50%] z-[99]">
-            <div class="flex justify-between">
-                <div
-                    class="custom-swiper-button-prev opacity-0 -translate-x-[50px] transition-all duration-[.5s] hover:-translate-x-[20px]">
-                    <button class="p-2">
-                        <img src="{{ asset('img/assets/Group 79 (2).svg') }}" class="-mt-[310px]" alt="" />
-                    </button>
-                </div>
-                <div
-                    class="custom-swiper-button-next opacity-100 translate-x-[50px] transition-all duration-[.5s] hover:translate-x-[20px]">
-                    {{-- <button class="p-2">
-                        <img src="{{ asset('img/assets/Group 80.svg') }}" class="-mt-[310px]" alt="" />
-                    </button> --}}
-                </div>
+            <img class="absolute top-0 right-0 w-1/2 h-full swipe-left" src="{{ asset('img/assets/img-welcome.png') }}" alt="" />
+            <div class="absolute z-[99] w-full -bottom-[4.2vw] hover:-bottom-[2vw] duration-[.5s] transition-all flex justify-center">
+                <a href="{{ url('home') }}" class="w-fit">
+                    <img
+                    src="{{asset('img/assets/Group 79 (7).svg')}}"
+                    class="w-[50vw]"
+                    alt=""
+                    />
+                </a>
             </div>
+        </section>
+        <!-- Navigasi Kustom -->
+        <!-- Tombol Navigasi Kustom -->
+        <div class="nex-prev absolute w-full top-[50%]">
+        <div class="flex justify-between">
+            <!-- Button Back/Previous -->
+            <div
+            class="custom-swiper-button-prev parent-prev opacity-0 -translate-x-[50px] transition-all duration-[.5s] hover:-translate-x-[20px] z-[55]"
+            >
+            <button class="p-2">
+                <img
+                src="{{ asset('img/assets/Group 81.svg') }}"
+                class="-mt-[310px]"
+                alt=""
+                />
+            </button>
+            </div>
+            <!-- Button Next -->
+            <div
+            class="custom-swiper-button-next opacity-100 translate-x-[50px] transition-all duration-[.5s] hover:translate-x-[20px] z-[55]"
+            >
+            <button class="p-2">
+                <img
+                src="{{ asset('img/assets/Group 80.svg') }}"
+                class="-mt-[310px]"
+                alt=""
+                />
+            </button>
+            </div>
+        </div>
         </div>
     </main>
 
-    <!-- ========= barba js ======= -->
-    <script src="https://unpkg.com/@barba/core"></script>
+    <!-- jsdelivr Barba -->
+    <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
     <!-- ========= load gsap animtion ========= -->
     <script src="https://unpkg.com/gsap@latest/dist/gsap.min.js"></script>
-    <!-- CustomEase Plugin -->
+    <!-- GSAP -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"
+      integrity="sha512-O+atZ/gABlcFlpIoLQR04f72qHqZWKwTVsQZHqk/8VE2nrzDlnqhXbnXP7Gh/TyhpPT8tEUm5A580GG8AloHTA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- Custom Ease GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/CustomEase.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"
-        integrity="sha512-O+atZ/gABlcFlpIoLQR04f72qHqZWKwTVsQZHqk/8VE2nrzDlnqhXbnXP7Gh/TyhpPT8tEUm5A580GG8AloHTA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="{{ asset('js/app.js') }}"></script>
+    <!-- Kode Javascript -->
+    @Vite('resources/js/app.js')
+    <script src="{{ asset('js/app.js') }}"></script>
+    <!-- swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
 </body>
 
 </html>
